@@ -3,6 +3,8 @@ package shop._8.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Getter
@@ -20,6 +22,7 @@ public class Cart extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,20 +32,15 @@ public class Cart extends BaseEntity {
     @Column(nullable = false)
     private int orderQuantity;
 
-    public Cart(Member member, int orderQuantity) {
+    public Cart(Member member, Product product, int orderQuantity) {
         this.member = member;
         this.orderQuantity = orderQuantity;
+        this.product = product;
     }
 
     // === 연관 관계 메소드 === //
-    public void addCartToOrder(Order order) {
+    public void order(Order order) {
         setOrder(order);
-        order.getCarts().add(this);
-    }
-
-    public void changeProduct(Product product) {
-        setProduct(product);
-        product.getCarts().add(this);
     }
 
     // === ddd === //
@@ -51,14 +49,31 @@ public class Cart extends BaseEntity {
      * 생성 메소드
      */
     public static Cart create(Member member, Product product, int orderQuantity) {
-        Cart cart = new Cart(member, orderQuantity);
+        Cart cart = new Cart(member, product, orderQuantity);
+
+        // 상품과 유저 연관관계 적용
+        product.getCarts().add(cart);
         member.getCarts().add(cart);
 
-        cart.changeProduct(product);
         return cart;
     }
 
-    public void changeQuantity(int orderQuantity) {
-        setOrderQuantity(orderQuantity);
+    /**
+     * 장바구니의 상품 수량을 바꿈
+     * @param orderQuantity
+     */
+    public void changeQuantity(int orderQuantity) throws IllegalAccessException {
+        if (getProduct().getQuantity() - orderQuantity < 0) {
+            throw new IllegalAccessException("수량이 부족합니다.");
+        } else {
+            setOrderQuantity(orderQuantity);
+        }
+    }
+
+    /**
+     * 장바구니 삭제
+     */
+    public void delete() throws IllegalAccessException {
+        getProduct().changeQuantity(getProduct().getQuantity() + getOrderQuantity());
     }
 }

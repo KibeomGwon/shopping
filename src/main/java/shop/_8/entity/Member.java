@@ -30,16 +30,16 @@ public class Member extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     private MemberGrade grade;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
     private List<Cart> carts = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
     private List<Address> addresses = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
     private Member(String username, String email, String password, String phone, LocalDateTime birth, String nickname, MemberGrade grade) {
@@ -51,6 +51,7 @@ public class Member extends BaseEntity {
         this.nickname = nickname;
         this.grade = grade;
     }
+
 
     // === ddd === //
 
