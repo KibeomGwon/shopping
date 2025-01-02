@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>register</title>
+</head>
+<body>
+    <form th:action="@{/member/register}" method="post">
+      <div>
+        <p>이름</p>
+        <input type="text" name="username"/>
+      </div>
+      <div>
+        <p>email</p>
+        <input type="email" name="email"/>
+      </div>
+      <div>
+        <p>password</p>
+        <input type="text" name="password"/>
+      </div>
+      <div>
+        <p>휴대폰 번호</p>
+        <input type="tel" name="phone"/>
+      </div>
+      <div>
+        <p>생일</p>
+        <input type="datetime-local" name="birth"/>
+      </div>
+      <div>
+        <p>닉네임</p>
+        <input type="text" name="nickname"/>
+      </div>
+      <input type="submit" value="확인"/>
+      <input type="reset" value="초기화"/>
+    </form>
+</body>
+</html>

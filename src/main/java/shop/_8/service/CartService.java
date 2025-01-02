@@ -53,6 +53,7 @@ public class CartService {
      * @param quantity
      * @throws IllegalAccessException
      * 상품의 수량은 주문을 해야만 감소하게 되어있음.
+     * this method is just increasing only orderQuantity of Cart Entity
      */
     public void increaseQuantityById(Long id, int quantity) throws IllegalAccessException {
         Cart cart = getCartEntity(id);
@@ -64,6 +65,7 @@ public class CartService {
      * @param quantity
      * @throws IllegalAccessException
      * 상품의 수량은 주문을 해야만 감소하게 되어있음.
+     * this method is just decreasing only orderQuantity of Cart Entity
      */
     public void decreaseQuantityById(Long id, int quantity) throws IllegalAccessException {
         Cart cart = getCartEntity(id);
@@ -71,7 +73,6 @@ public class CartService {
     }
 
     // === private method === //
-
     private Member getMemberEntity(Long id) {
         return memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("유저를 찾지 못했습니다."));
     }

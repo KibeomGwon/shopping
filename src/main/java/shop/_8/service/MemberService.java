@@ -24,11 +24,17 @@ public class MemberService {
         return memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("id에 해당하는 유저가 없습니다."));
     }
 
-    public Member findByEmail(String email) {
-        return memberRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("email에 해당하는 유저가 업습니다."));
+    public Member findByEmail(String email) throws IllegalArgumentException {
+        return memberRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("email에 해당하는 유저가 없습니다."));
     }
 
-    public Member save(MemberSaveDto dto) {
+    public Member save(MemberSaveDto dto) throws IllegalAccessException {
+        authenticateExistByEmail(dto.getEmail());
         return memberRepository.save(dto.toEntity());
+    }
+
+    private void authenticateExistByEmail(String email) throws IllegalArgumentException {
+        if (memberRepository.existsMemberByEmail(email))
+            throw new IllegalArgumentException("이미 존재하는 이메일 입니다. : " + email);
     }
 }

@@ -16,27 +16,26 @@ import java.util.List;
 
 @SpringBootTest
 @Transactional
-@Rollback(value = false)
 public class MemberServiceTest {
-//    @Autowired
-//    MemberService memberService;
-//    @Autowired
-//    EntityManager em;
-//
-//    @Test
-//    public void saveTest() throws Exception {
-//        // given
-//        MemberSaveDto dto = new MemberSaveDto("user1", "email", "string", "1111111", LocalDateTime.of(2000, 10, 2, 00, 00), "haha", MemberGrade.NORMAL);
-//        Member savedMember = memberService.save(dto);
-//
-//        em.flush();
-//        em.clear();
-//        // when
-//        Member findMember = memberService.findByEmail("email");
-//        List<Member> all = memberService.findAll();
-//        // then
-//        Assertions.assertThat(savedMember.getMemberId()).isEqualTo(findMember.getMemberId());
-//        Assertions.assertThat(all.size()).isEqualTo(1);
-//
-//    }
+    @Autowired
+    MemberService memberService;
+    @Autowired
+    EntityManager em;
+
+    @Test
+    public void saveTest() throws Exception {
+        // given
+        MemberSaveDto dto = new MemberSaveDto("user1", "email", "string", "1111111", LocalDateTime.of(2000, 10, 2, 00, 00), "haha", MemberGrade.NORMAL);
+        Member savedMember = memberService.save(dto);
+
+        em.flush();
+        em.clear();
+        // when
+        Member findMember = memberService.findByEmail("email");
+        List<Member> all = memberService.findAll();
+        // then
+        Assertions.assertThat(savedMember.getMemberId()).isEqualTo(findMember.getMemberId());
+        Assertions.assertThat(all.size()).isEqualTo(1);
+
+    }
 }

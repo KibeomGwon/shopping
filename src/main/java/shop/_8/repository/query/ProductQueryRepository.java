@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import shop._8.dto.condition.ProductSearchCondition;
 import shop._8.entity.*;
 
 import java.util.List;
@@ -32,12 +33,12 @@ public class ProductQueryRepository {
         this.factory = new JPAQueryFactory(em);
     }
 
-    public Page<Product> findPageByMemberAndCategory(List<Category> categories, Pageable pageable) {
+    public Page<Product> findPageByMemberAndCategory(ProductSearchCondition condition, Pageable pageable) {
         List<Product> content = factory
                 .select(product)
                 .from(product)
                 .join(product.cpList, categoryProduct).join(categoryProduct.category, category1)
-                .where(categoryIn(categories))
+                .where(categoryIn(condition.getCategories()), product.name.contains(condition.getProductName()))
                 .distinct()
                 .orderBy(product.makingDate.desc())
                 .offset(pageable.getOffset())
@@ -48,7 +49,7 @@ public class ProductQueryRepository {
                 .select(product.count())
                 .from(product)
                 .join(product.cpList, categoryProduct).join(categoryProduct.category, category1)
-                .where(categoryIn(categories))
+                .where(categoryIn(condition.getCategories()), product.name.contains(condition.getProductName()))
                 .distinct()
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

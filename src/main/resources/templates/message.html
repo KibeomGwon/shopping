@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>message</title>
+</head>
+
+<body>
+<script th:inline="javascript">
+    const msg = /*[[${message}]]*/ 'Default message';
+    const url = /*[[${redirectUrl}]]*/ '/default-url';
+
+    alert(msg);
+    location.replace(url);
+</script>
+</body>
+</html>

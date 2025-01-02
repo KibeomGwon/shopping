@@ -17,10 +17,11 @@ import java.util.List;
 public class Order extends BaseEntity {
     @Id
     @GeneratedValue
+    @Column(name = "order_id")
     private Long orderId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "memberId")
+    @JoinColumn(name = "member_id")
     private Member member;
 
     private long orderPrice;

@@ -16,15 +16,17 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Setter(value = AccessLevel.PRIVATE)
+@Table(name = "product")
 public class Product extends BaseEntity {
     @Id
     @GeneratedValue
+    @Column(name = "product_id")
     private Long productId;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
     private String image;
-    @Column(nullable = false)
+    @Column(name = "`explain`", nullable = false)
     private String explain;
     @Column(nullable = false)
     private LocalDateTime makingDate;
@@ -70,6 +72,7 @@ public class Product extends BaseEntity {
 
     /**
      * 카테고리 추가
+     *
      * @param categories
      */
     public void addCps(List<Category> categories) {

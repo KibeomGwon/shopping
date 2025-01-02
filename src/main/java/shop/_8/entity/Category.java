@@ -15,9 +15,11 @@ import java.util.List;
 @Getter
 @Setter(value = AccessLevel.PRIVATE)
 @NoArgsConstructor
+@Table(name = "category")
 public class Category extends BaseEntity {
     @Id
     @GeneratedValue
+    @Column(name = "category_id")
     private Long categoryId;
     @Column(unique = true)
     private String category;

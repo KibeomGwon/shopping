@@ -1,4 +1,4 @@
-package shop._8.dto.page;
+package shop._8.dto.paging;
 
 
 import lombok.*;
@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter(value = AccessLevel.PRIVATE)
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderPageDto {
+public class OrderPagingDto {
     private int now;
     private int total;
     private List<Order> orders = new ArrayList<>();
 
-    public OrderPageDto(int now, int total) {
+    public OrderPagingDto(int now, int total) {
         this.now = now;
         this.total = total;
     }

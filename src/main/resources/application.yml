@@ -1,13 +1,22 @@
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-    url: jdbc:h2:tcp://localhost/~/558
-
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+#    url: jdbc:h2:tcp://localhost/~/558
+    url: ${SPRING_DATASOURCE_URL}
   jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+#    show-sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
+    properties:
+      hibernate:
+#        format_sql: true
+#        hbm2ddl.import_files: import.sql
+#    generate-ddl: true
+
 
 logging:
   level:

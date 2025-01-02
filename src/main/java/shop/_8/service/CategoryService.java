@@ -19,8 +19,8 @@ public class CategoryService {
 
     /**
      * @param parent
-     * parent가 있으면 parent의 자식 리스트를 반환,
-     * parent가 없으면 parent 리스트를 반환,
+     * parent가 null이 아니면 parent의 자식 리스트를 반환,
+     * parent가 null이면 상위 카테고리 리스트를 반환,
      * 카테고리 데이터가 없으면 빈 리스트를 반환.
      */
     public List<Category> findAll(String parent) {

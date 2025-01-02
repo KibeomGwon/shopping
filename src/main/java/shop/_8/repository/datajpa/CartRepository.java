@@ -13,4 +13,7 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
 
     @Query("select c from Cart c join fetch c.product p where c.member = ?1 and c.order is not null")
     List<Cart> findAllOrderedByMember(Member member);
+
+    @Query("select c from Cart c where c.member = ?1 and c.order is not null")
+    List<Cart> findAllUnorderByMember(Member member);
 }

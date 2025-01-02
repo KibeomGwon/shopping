@@ -12,9 +12,11 @@ import java.util.List;
 @Setter(value = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "member")
 public class Member extends BaseEntity {
     @Id
     @GeneratedValue
+    @Column(name = "member_id")
     private Long memberId;
     @Column(nullable = false)
     private String username;
@@ -62,4 +64,17 @@ public class Member extends BaseEntity {
         return new Member(username, email, password, phone, birth, nickname, grade);
     }
 
+    @Override
+    public String toString() {
+        return "Member{" +
+                "grade=" + grade +
+                ", nickname='" + nickname + '\'' +
+                ", birth=" + birth +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", memberId=" + memberId +
+                '}';
+    }
 }
